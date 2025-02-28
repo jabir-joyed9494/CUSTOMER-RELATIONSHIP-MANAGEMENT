@@ -43,6 +43,14 @@
          $stmt->execute([$name,$email,$phone,$id]);
 
        }
+
+       public function deleteLead($id){
+          $db = new DATABASE();
+          $pdo = $db->dbconnection();
+
+          $stmt = $pdo->prepare("DELETE FROM Leads WHERE id = ?");
+          $stmt->execute([$id]);
+       }
    }
 
 ?>

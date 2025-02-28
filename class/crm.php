@@ -24,6 +24,9 @@
       public function updateLead($id,$name,$email,$phone){
           $this->leads->updateLead($id,$name,$email,$phone);
       }
+      public function deleteLead($leadid){
+         $this->leads->deleteLead($leadid);
+      }
    }
   
 

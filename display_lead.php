@@ -1,6 +1,10 @@
 <?php
-   include 'class/for-display.php';
+
+  error_reporting(E_ALL);
+   ini_set('display_errors', 1);
    include 'class/update.php';
+   include 'class/for-display.php';
+   
    $displaylead = new DISPLAY();
    $displaylead->Process();
    $leads = $displaylead->getLeads();
@@ -12,6 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      $displaylead = new DISPLAY();
    $displaylead->Process();
    $leads = $displaylead->getLeads();
+}
+
+if(isset($_GET['confirm_delete'])){
+    $delete_id = $_GET['confirm_delete'];
+    var_dump($delete_id);
+    $crm = new CRM();
+    $crm->deleteLead($delete_id);
 }
 ?>
 
@@ -56,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                        <button class="btn btn-warning btn-sm update-btn" data-id = "<?php echo $lead["id"] ?>"
                                        data-name = "<?php echo $lead["name"] ?>" data-email = "<?php echo $lead["email"] ?>"
                                        data-phone = <?php echo $lead["phone"] ?> data-bs-toggle="modal"
-                                       data-bs-target = "#updateModal" >Update</button>
-                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                       data-bs-target = "#updateModal" >Edit</button>
+                                        <button class="btn btn-danger btn-sm delete-btn" data-id = <?php echo $lead['id']; ?>
+                                         data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
                                     </td>
                                  </tr>
                                 <?php endforeach; ?>
@@ -107,6 +119,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             
           </div>
+
+          <!-- Delete Modal -->
+          
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                               <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                        </div>
+
+                        <div class="modal-body">
+                             Are you sure you want to delete this leads!
+                        </div>
+
+                        <div class="modal-footer">
+                           <button class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                           <a id="confirmDeleteBtn" href="#" class="btn btn-danger">YES</a>
+                        </div>
+
+                    </div>
+
+                </div>
+          </div>
+
           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -119,6 +155,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     document.getElementById('updateEmail').value = this.getAttribute('data-email');
                     document.getElementById('updatePhone').value = this.getAttribute('data-phone');
                  })
+            })
+
+            document.querySelectorAll(".delete-btn").forEach(button=>{
+                       button.addEventListener('click',function(){
+                      let deleteId = this.getAttribute('data-id'); 
+                      document.getElementById('confirmDeleteBtn').href = "display_lead.php?confirm_delete=" + deleteId;      
+                       })          
             })
          </script>
 
