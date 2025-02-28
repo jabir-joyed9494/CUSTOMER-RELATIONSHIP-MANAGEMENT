@@ -16,6 +16,14 @@
       public function searchLead($name){
         return $this->leads->searchLead($name);
       }
+
+      public function displayLead(){
+         return $this->leads->displayLead();
+      }
+
+      public function updateLead($id,$name,$email,$phone){
+          $this->leads->updateLead($id,$name,$email,$phone);
+      }
    }
   
 

@@ -36,20 +36,21 @@
                 <?php if(isset($leads) && count($leads)>0):?>
                      <div class="table-responsive mt-4">
                      <h2 class="mb-4">Matching Leads</h2>
-                     <table class="table table-bordered table-striped">
-                      <thead class="table-dark"></thead>
+                     <table class="table table-bordered border-dark table-striped">
+                      <thead class="table-dark">
 
-                          <tr>
+                          <tr class="text-center">
                             <th>ID</th>
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE</th>
                           </tr>
+                          </thead>
                          
                           <tbody>
                             <?php foreach($leads as $lead): ?>
 
-                              <tr>
+                              <tr class="text-center">
                                 <td><?php echo htmlspecialchars($lead["id"]) ?> </td>
                                  <td><?php echo htmlspecialchars($lead["name"]) ?> </td>
                                  <td><?php echo htmlspecialchars($lead["email"]) ?> </td>

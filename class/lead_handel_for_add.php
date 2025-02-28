@@ -32,7 +32,7 @@
         public function Process($postman){
              if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-                // var_dump($postman);
+                //var_dump($postman);
                 // die();
                  
                 if(empty($postman["name"])){
